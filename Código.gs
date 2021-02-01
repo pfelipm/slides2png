@@ -60,7 +60,4 @@ function exportarDiaposPng() {
     carpetaExp.createFile(blob.setName(`Diapositiva ${String(n + 1).padStart(nDigitos, '0')}`));
   });
 
-  // Mensaje final
-  SlidesApp.getUi().alert('✔️️ URL carpeta exportación:\n\n' + carpetaExp.getUrl());
-
 }
