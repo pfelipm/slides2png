@@ -53,13 +53,11 @@ function exportarDiaposPng() {
   // Crear carpeta de exportación
   const carpetaExp = carpeta.createFolder(nombreCarpetaExp);
 
-  // Por fin, crear imágenes a partir de los blobs obtenidos para cada diapo,
+  // Por fin, creamos imágenes a partir de los blobs obtenidos para cada diapo,
   // nombres precedidos por nº de diapositiva con relleno de 0s por la izquierda
   const nDigitos = parseInt(blobs.length.toString().length);
   blobs.forEach((blob, n) => {
-
     carpetaExp.createFile(blob.setName(`Diapositiva ${String(n + 1).padStart(nDigitos, '0')}`));
-
   });
 
   // Mensaje final
