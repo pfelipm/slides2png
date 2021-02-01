@@ -46,7 +46,7 @@ const blobsImg = UrlFetchApp.fetchAll(urls).map(url => url.getBlob());
 
 Este segundo método es más elegante, conciso y rápido en ejecución (19" frente a 28" en una presentación con 10 diapositivas), por lo que debería ser preferible  👍 al primero.
 
-Por cierto que la documentación de estos servicios avanzados en ocasiones resulta muy escasa, dado que remite a su correspondiente API REST. A veces, interpretar cómo se deben construir o utilizar los objetos que se pasan como parámetros de sus métodos cuando se invocan a través del correspondiente servicio avanzado no es obvio. En estas ocasiones suele resultar de ayuda ver qué código JavaScript genera el [explorador de la API](https://twitter.com/pfelipm/status/1356221409920495616) cuando se usa para realizar peticiones de prueba.
+Por cierto que la documentación de estos servicios avanzados en ocasiones resulta simplemente inexistente y simplemente remite a su correspondiente API REST. A veces, interpretar cómo se deben construir o utilizar los objetos que se pasan como parámetros de sus métodos cuando estos son invocados a través del correspondiente servicio avanzado no es obvio. En estas circunstancias suele resultar de ayuda ver qué código JavaScript genera el [explorador de la API](https://twitter.com/pfelipm/status/1356221409920495616) cuando se usa para realizar peticiones de prueba.
 
 # Siguientes pasos
 
