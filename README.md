@@ -10,9 +10,9 @@ Copiar dentro del **editor de secuencias de comandos** de una presentación y ej
 
 # ¿Cómo funciona?
 
-Se utilizan dos métodos distintos:
+Se utilizan dos métodos distintos (**v1** y **v2**):
 
-**v1️⃣:** Preparar URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth, obtenido por el propio script, por medio del parámetro `?access_token=`.
+**1️⃣** Preparar URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth, obtenido por el propio script, por medio del parámetro `?access_token=`.
 
 ```javascript
 const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
@@ -31,7 +31,7 @@ diapos = presentacionAux.getSlides();
 
 Como el script es de tipo embebido, es necesario generar una copia temporal de la presentación, de lo contrario la estrategia anterior no funcionará correctamente.
 
-**v2️⃣**: Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página, sin necesidad de los malabarismos 🤹 anteriores . Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
+**2️⃣** Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página, sin necesidad de los malabarismos 🤹 anteriores . Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
 
 ```javascript
 slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(), {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
