@@ -36,6 +36,7 @@ function exportarDiaposPng() {
   
   // Obtener blobs (imágenes PNG) de cada diapositiva
   const blobsImg = diapos.map(diapo => {
+    
     const blobImg = UrlFetchApp.fetch(url).getBlob();
 
     // Este truqui solo exporta la 1ª diapo, así que las vamos moviendo al final 😎 
@@ -49,6 +50,7 @@ function exportarDiaposPng() {
     diapos = presentacionAux.getSlides();
 
     return blobImg;
+    
   })
 
   // Eliminamos presentación auxiliar, ya tenemos los blobs/png
