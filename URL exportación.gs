@@ -11,13 +11,16 @@
 function onOpen() {
  
   SlidesApp.getUi().createMenu('🖼️ Slides2PNG')
-    .addItem('📥 Exportar diapositivas como PNG', 'exportarDiaposPng')
+    .addItem('📥 Exportar diapositivas como PNG (URL)', 'exportarDiaposPngUrl')
+    .addItem('📥 Exportar diapositivas como PNG (API)', 'exportarDiaposPngApi')
     .addToUi();
 
 }
 
 /* Exporta todas las diapos como png en carpeta de Drive junto a la presentación */
-function exportarDiaposPng() {
+function exportarDiaposPngUrl() {
+
+  const t1 = new Date();
 
   // Obtiene copia auxiliar de la presentación, no parece ser posible actuar directamente
   // sobre la original por falta de actualización del orden de las diapositivas
@@ -79,6 +82,8 @@ function exportarDiaposPng() {
   blobsImg.forEach((blob, n) => {
     carpetaExp.createFile(blob.setName(`Diapositiva ${String(n + 1).padStart(nDigitos, '0')}`));
   });
+
+  console.info(new Date() - t1);
 
   // Mensaje final
   SlidesApp.getUi().alert('✔️️ URL carpeta exportación:\n\n' + carpetaExp.getUrl());
