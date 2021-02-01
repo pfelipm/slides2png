@@ -37,7 +37,7 @@ Como el script es de tipo embebido, es necesario generar una copia temporal de l
 slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(), {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
 ```
 
-La recuperación de los blobs correspondientes a las miniaturas de cada imagen se realiza ahora utilizando `UrlFetchApp.fetchAll(url)` por razones de eficiencia.
+La recuperación de los blobs correspondientes a las miniaturas de cada imagen puede efectuarse ahora de manera concurrente utilizando `UrlFetchApp.fetchAll(url)` dado que no tenemos que andar ajustando la diapositiva que aparece en primera posición. Y esto es más limpio y eficiente, claro.
 
 ```javascript
 const urls = slidesComoPng.map(diapo => {return {url: diapo.contentUrl}});
