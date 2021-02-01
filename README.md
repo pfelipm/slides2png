@@ -12,13 +12,13 @@ Copiar dentro del **editor de secuencias de comandos** de una presentación y ej
 
 Se utilizan dos métodos distintos:
 
-**v1:** Preparar URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth obtenido por el propio script por medio del parámetro `?access_token=`.
+**v1:** Preparar URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth, obtenido por el propio script, por medio del parámetro `?access_token=`.
 
 ```javascript
 const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
 ```
 
-Dado que esta estrategia solo permite obtener la primera diapositiva, esta se desplaza al final de la presentación de manera iterativa para recuperarlas todas. Es necesario cerrar la presentación para que el cambio de posición de la diapositiva tenga efecto, y volver a abrirla para repetir el proceso con las diapositivas restantes:
+Dado que esta estrategia solo permite obtener la primera diapositiva, esta se desplaza al final de la presentación de manera sucesiva para recuperarlas todas. Es necesario cerrar la presentación, para que el cambio de posición de la diapositiva tenga efecto, y volver a abrirla para repetir el proceso con las diapositivas restantes:
 
 ```javascript
 ...
@@ -45,7 +45,7 @@ const urls = slidesComoPng.map(diapo => {return {url: diapo.contentUrl}});
 const blobsImg = UrlFetchApp.fetchAll(urls).map(url => url.getBlob());
 ```
 
-Este segundo método es más elegante, conciso y rápido en ejecución, por lo que debería ser preferible  👍 al primero.
+Este segundo método es más elegante, conciso y rápido en ejecución (19" frente a 28" en una presentación con 10 diapositivas), por lo que debería ser preferible  👍 al primero.
 
 # Siguientes pasos
 
