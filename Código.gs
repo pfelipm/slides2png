@@ -25,7 +25,7 @@ function exportarDiaposPng() {
   
   // Obtener blobs (imágenes PNG) de cada diapositiva
   let blobs = [];
-  for (let diapo = 0; diapo < diapos.length; diapo++) {
+  for (let diapo = 1; diapo <= diapos.length; diapo++) {
     blobs.push(UrlFetchApp.fetch(url).getBlob());
     // Este truqui solo exporta la 1ª, así que las vamos moviendo al final 😎 
     diapos[0].move(diapos.length);
