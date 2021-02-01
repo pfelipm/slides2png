@@ -1,6 +1,6 @@
 # slides2png
 
-Un Apps Script que exporta todas las diapositivas de una presentación de Google a PNG y las guarda en Google Drive.
+Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imagen png** y las guarda en una carpeta anexa en Google Drive.
 
 ![](https://user-images.githubusercontent.com/12829262/106485177-9e6e9100-64b0-11eb-8b7c-ad4271711815.gif)
 
@@ -21,13 +21,32 @@ const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/
 Dado que esta estrategia solo permite obtener la primera diapositiva, esta se desplaza al final de la presentación de manera iterativa para recuperarlas todas. Es necesario cerrar la presentación para que el cambio de posición de la diapositiva tenga efecto, y volver a abrirla para repetir el proceso con las diapositivas restantes:
 
 ```javascript
+...
+diapos[0].move(diapos.length);
 presentacionAux.saveAndClose();
+presentacionAux = SlidesApp.openById(idPresentacionAux);
+diapos = presentacionAux.getSlides();
+...
 ```
 
-Como el script es de tipo embebido, es necesario generar una copia temporal de la presentación, de lo contrario no es posible utilizar el _truco_ anterior.
+Como el script es de tipo embebido, es necesario generar una copia temporal de la presentación, de lo contrario la estrategia anterior no funcionará correctamente.
 
-v2: 
+**v2**: Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página, sin necesidad de los malabarismos 🤹 anteriores . Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
+
+```javascript
+slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(),
+																			{'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
+```
+
+La recuperación de los blobs correspondientes a las miniaturas de cada imagen se realiza ahora utilizando `UrlFetchApp.fetchAll(url)` por razones de eficiencia.
+
+```javascript
+const urls = slidesComoPng.map(diapo => {return {url: diapo.contentUrl}});
+const blobsImg = UrlFetchApp.fetchAll(urls).map(url => url.getBlob());
+```
+
+Este segundo método es más elegante, conciso y rápido en ejecución, por lo que debería ser preferible  👍 al primero.
 
 # Siguientes pasos
 
-Esto igual daría para un complemento... (algún día) 🤔 .
+Esto igual daría para un complemento... (tal vez algún día) 🤔 .
