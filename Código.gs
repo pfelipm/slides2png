@@ -7,7 +7,7 @@
 /* Crear menú del script */
 function onOpen() {
  
-  SlidesApp.getUi().createMenu('Slides2PNG')
+  SlidesApp.getUi().createMenu('🖼️ Slides2PNG')
     .addItem('📥 Exportar diapositivas como PNG', 'exportarDiaposPng')
     .addToUi();
 
@@ -23,7 +23,7 @@ function exportarDiaposPng() {
         archivoAux = DriveApp.getFileById(idPresentacion).makeCopy(),
         idPresentacionAux = archivoAux.getId();
 
-  // URL especial para la exportación PNG, ¡incluyendo token Oauth! solo obtiene la 1ª diapositiva, visto en 
+  // URL "mágico" para la exportación PNG, ¡incluyendo token Oauth propio!, visto en 
   // https://tanaikech.github.io/2018/12/14/summarizing-slides-as-thumbnails/
   const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
 
@@ -35,7 +35,7 @@ function exportarDiaposPng() {
   const blobsImg = diapos.map(diapo => {
     const blobImg = UrlFetchApp.fetch(url).getBlob();
 
-    // Este truqui solo exporta la 1ª, así que las vamos moviendo al final 😎 
+    // Este truqui solo exporta la 1ª diapo, así que las vamos moviendo al final 😎 
     diapos[0].move(diapos.length);
 
     // Ahora hay que cerrar la presentación para que el cambio de posición tenga efecto...
