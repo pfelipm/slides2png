@@ -24,9 +24,8 @@ function exportarDiaposPng() {
               + ScriptApp.getOAuthToken();
   
   // Obtener blobs (imágenes PNG) de cada diapositiva
-  let blobs = [];
-  for (let diapo = 1; diapo <= diapos.length; diapo++) {
-    blobs.push(UrlFetchApp.fetch(url).getBlob());
+  const blobs = diapos.map(diapo => {
+    const blob = UrlFetchApp.fetch(url).getBlob();
     // Este truqui solo exporta la 1ª, así que las vamos moviendo al final 😎 
     diapos[0].move(diapos.length);
     // Ahora hay que cerrar la presentación para que el cambio de posición se efectúe...
@@ -34,7 +33,8 @@ function exportarDiaposPng() {
     // ...y volver a abrirla antes de la siguiente iteración >> por esta razón esto no puede realizarse con un .map()
     presentacion = SlidesApp.openById(idPresentacion);
     diapos = presentacion.getSlides();
-  }
+    return blob;
+  })
 
   // Presentación en Drive
   const presentacionDrive = DriveApp.getFileById(presentacion.getId());
