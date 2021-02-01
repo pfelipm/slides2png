@@ -10,9 +10,9 @@ Copiar dentro del **editor de secuencias de comandos** de una presentación y ej
 
 # ¿Cómo funciona?
 
-Se utilizan dos métodos distintos (**v1** y **v2**):
+Se utilizan dos métodos distintos (**versión 1️⃣** · **versión 2️⃣**)**️**:
 
-**1️⃣** Preparar URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth, obtenido por el propio script, por medio del parámetro `?access_token=`.
+**1️⃣** Se preparan URLs especialmente construidos para forzar la exportación de la 1ª diapositiva de la presentación en formato png y recuperarla como `blob` (`image/png`) usando `UrlFetchApp.fetch(url)`. Para evitar tener que compartir la presentación se inyecta en la URL un token OAuth, obtenido por el propio script, por medio del parámetro `?access_token=`.
 
 ```javascript
 const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
