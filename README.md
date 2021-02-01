@@ -31,7 +31,7 @@ diapos = presentacionAux.getSlides();
 
 Como el script es de tipo embebido, es necesario generar una copia temporal de la presentación, de lo contrario la estrategia anterior no funcionará correctamente.
 
-**2️⃣** Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página gracias al método `presentations.pages.getThumbnail()`[🔗](https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail), sin necesidad de los malabarismos 🤹 anteriores. Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
+**2️⃣** Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar la imágenes en miniatura de cada página por medio del método `presentations.pages.getThumbnail()`[🔗](https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail), sin necesidad de los malabarismos 🤹 anteriores. Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
 
 ```javascript
 slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(), {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
