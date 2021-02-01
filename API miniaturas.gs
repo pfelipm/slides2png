@@ -2,8 +2,8 @@
  * Exporta todas las diapositivas de la presentación como imágenes png
  * en una carpeta junto a la propia presentación.
  * Utiliza el servicio avanzado de Slides, preferible a API REST dado que no precisa
- * proyecto en GCP, para obtener miniaturas de cada diapositiva, que
- * descarga por medio de su URL.
+ * proyecto específico en GCP, para obtener miniaturas de cada diapositiva, que
+ * descarga por medio de su URL usando fetchAll().
  * https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail
  * Solo es una POC, ¡muy preliminar, sin control de errores!, quizás daría para un complemento GWS :-).
  * @OnlyCurrentDoc
@@ -21,14 +21,12 @@ function exportarDiaposPngApi() {
         Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(),
                                                 {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
 
-  // Preparar peticiones fetchAll
+  // Preparar peticiones fetchAll (ojo, necesario return dado que usamos llaves {..})
   const urls = slidesComoPng.map(diapo => {return {url: diapo.contentUrl}});
 
   // Obtener blobs (imágenes PNG) de cada diapositiva con fetch asíncronos
   const blobsImg = UrlFetchApp.fetchAll(urls).map(url => url.getBlob());
   
-  console.info(blobsImg[0].getContentType());
-
   // Obtiene archivo de la presentación en Drive
   const presentacionDrive = DriveApp.getFileById(idPresentacion);
 
