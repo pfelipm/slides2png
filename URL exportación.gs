@@ -11,8 +11,8 @@
 function onOpen() {
  
   SlidesApp.getUi().createMenu('🖼️ Slides2PNG')
-    .addItem('📥 Exportar diapositivas como PNG (URL)', 'exportarDiaposPngUrl')
-    .addItem('📥 Exportar diapositivas como PNG (API)', 'exportarDiaposPngApi')
+    .addItem('📥 Exportar diapositivas como PNG (v1 URL)', 'exportarDiaposPngUrl')
+    .addItem('📥 Exportar diapositivas como PNG (v2 API)', 'exportarDiaposPngApi')
     .addToUi();
 
 }

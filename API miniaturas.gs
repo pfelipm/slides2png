@@ -1,7 +1,7 @@
 /**
  * Exporta todas las diapositivas de la presentación como imágenes png
  * en una carpeta junto a la propia presentación.
- * Utiliza el servicio avanzado, preferible a API REST dado que no precisa
+ * Utiliza el servicio avanzado de Slides, preferible a API REST dado que no precisa
  * proyecto en GCP, para obtener miniaturas de cada diapositiva, que
  * descarga por medio de su URL.
  * https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail
@@ -54,7 +54,7 @@ function exportarDiaposPngApi() {
   });
 
   console.info(new Date() - t1);
-  
+
   // Mensaje final
   SlidesApp.getUi().alert('✔️️ URL carpeta exportación:\n\n' + carpetaExp.getUrl());
 
