@@ -2,6 +2,9 @@
  * Exporta todas las diapositivas de la presentación como imágenes png
  * en una carpeta junto a la propia presentación.
  * Solo es una POC, ¡muy preliminar, sin control de errores!, quizás daría para un complemento GWS :-).
+ * Mejora: utilizar API o servicio avanzado (preferible) Slides para obtener miniaturas de cada diapositiva
+ * de un modo más limpio y configurable:
+ * https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail
  */
 
 /* Crear menú del script */
