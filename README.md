@@ -18,7 +18,7 @@ Se utilizan dos métodos distintos (**v1** y **v2**):
 const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
 ```
 
-Dado que esta estrategia solo permite obtener la primera diapositiva, esta se desplaza al final de la presentación de manera sucesiva para recuperarlas todas. Es necesario cerrar la presentación, para que el cambio de posición de la diapositiva tenga efecto, y volver a abrirla para repetir el proceso con las diapositivas restantes:
+Dado que esta estrategia solo permite obtener la primera diapositiva, esta se desplaza al final de la presentación de manera sucesiva para recuperarlas todas. Hay que cerrar la presentación, para que el cambio de posición de la diapositiva tenga efecto, y volver a abrirla para repetir el proceso con las diapositivas restantes:
 
 ```javascript
 ...
