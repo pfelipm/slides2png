@@ -1,6 +1,6 @@
 # slides2png
 
-Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imagen png** y las guarda en una carpeta anexa en Google Drive.
+Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imágenes png** independientes y las guarda en una carpeta anexa en Google Drive.
 
 ![](https://user-images.githubusercontent.com/12829262/106485177-9e6e9100-64b0-11eb-8b7c-ad4271711815.gif)
 
