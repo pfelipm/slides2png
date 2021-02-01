@@ -1,6 +1,6 @@
 # slides2png
 
-Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imágenes png** independientes y las guarda en una carpeta anexa en Google Drive.
+Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imágenes png** independientes y las guarda en una carpeta anexa en Google Drive, surgido a partir de [este tuit](https://twitter.com/ejruizgarcia/status/1355974033247006723).
 
 ![](https://user-images.githubusercontent.com/12829262/106485177-9e6e9100-64b0-11eb-8b7c-ad4271711815.gif)
 
@@ -31,7 +31,7 @@ diapos = presentacionAux.getSlides();
 
 Como el script es de tipo embebido, es necesario generar una copia temporal de la presentación, de lo contrario la estrategia anterior no funcionará correctamente.
 
-**2️⃣** Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página, sin necesidad de los malabarismos 🤹 anteriores . Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
+**2️⃣** Se utiliza el [servicio avanzado de Diapositivas](https://developers.google.com/apps-script/advanced/slides) para generar miniaturas de cada página gracias al método `presentations.pages.getThumbnail()` ([aquí](https://developers.google.com/slides/reference/rest/v1/presentations.pages/getThumbnail)), sin necesidad de los malabarismos 🤹 anteriores. Esto es preferible a tirar directamente de su API REST dado que de este modo se puede utilizar el proyecto GCP predeterminado, en lugar de configurar uno específico a través de la consola, con todo lo que ello supone (activar APIs, configuración pantalla OAuth, etc.).
 
 ```javascript
 slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(), {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
@@ -45,6 +45,8 @@ const blobsImg = UrlFetchApp.fetchAll(urls).map(url => url.getBlob());
 ```
 
 Este segundo método es más elegante, conciso y rápido en ejecución (19" frente a 28" en una presentación con 10 diapositivas), por lo que debería ser preferible  👍 al primero.
+
+Por cierto que la documentación de estos servicios avanzados en ocasiones resulta muy escasa, dado que remite a su correspondiente API REST. A veces, interpretar cómo se deben construir o utilizar los objetos que se pasan como parámetros de sus métodos cuando se invocan a través del correspondiente servicio avanzado no es obvio. En estas ocasiones suele resultar de ayuda ver qué código JavaScript genera el [explorador de la API](https://twitter.com/pfelipm/status/1356221409920495616) cuando se usa para realizar peticiones de prueba.
 
 # Siguientes pasos
 
