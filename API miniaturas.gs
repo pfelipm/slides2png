@@ -17,6 +17,8 @@ function exportarDiaposPngApi() {
   const presentacion = SlidesApp.getActivePresentation(),
         idPresentacion = presentacion.getId(),
         diapos = presentacion.getSlides(),
+        
+        // Obtener todas las miniaturas en slidesComoPng[]
         slidesComoPng = diapos.map(diapo => 
         Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(),
                                                 {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
