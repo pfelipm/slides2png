@@ -9,25 +9,24 @@
 
 /* Crear menú del script */
 function onOpen() {
- 
   SlidesApp.getUi().createMenu('🖼️ Slides2PNG')
     .addItem('📥 Exportar diapositivas como PNG (v1 URL)', 'exportarDiaposPngUrl')
     .addItem('📥 Exportar diapositivas como PNG (v2 API)', 'exportarDiaposPngApi')
     .addToUi();
-
 }
 
 /* Exporta todas las diapos como png en carpeta de Drive junto a la presentación */
 function exportarDiaposPngUrl() {
 
+  // Tiempo inicial
   const t1 = new Date();
 
   // Obtiene copia auxiliar de la presentación, no parece ser posible actuar directamente
   // sobre la original por falta de actualización del orden de las diapositivas
-  const presentacion = SlidesApp.getActivePresentation(),
-        idPresentacion = presentacion.getId(),
-        archivoAux = DriveApp.getFileById(idPresentacion).makeCopy(),
-        idPresentacionAux = archivoAux.getId();
+  const presentacion = SlidesApp.getActivePresentation();
+  const idPresentacion = presentacion.getId();
+  const archivoAux = DriveApp.getFileById(idPresentacion).makeCopy();
+  const idPresentacionAux = archivoAux.getId();
 
   // URL "mágico" para la exportación PNG, ¡incluyendo token Oauth propio!, visto en 
   // https://tanaikech.github.io/2018/12/14/summarizing-slides-as-thumbnails/
@@ -83,9 +82,9 @@ function exportarDiaposPngUrl() {
     carpetaExp.createFile(blob.setName(`Diapositiva ${String(n + 1).padStart(nDigitos, '0')}`));
   });
 
+  // Tiempo final
   console.info(new Date() - t1);
 
   // Mensaje final
   SlidesApp.getUi().alert('✔️️ URL carpeta exportación:\n\n' + carpetaExp.getUrl());
-
 }

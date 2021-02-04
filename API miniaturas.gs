@@ -12,15 +12,18 @@
 /* Exporta todas las diapos como png en carpeta de Drive junto a la presentación */
 function exportarDiaposPngApi() {
 
+  // Tiempo incial
   const t1 = new Date();
   
-  const presentacion = SlidesApp.getActivePresentation(),
-        idPresentacion = presentacion.getId(),
-        diapos = presentacion.getSlides(),
-        // Obtener todas las miniaturas en slidesComoPng[]
-        slidesComoPng = diapos.map(diapo => 
-        Slides.Presentations.Pages.getThumbnail(idPresentacion, diapo.getObjectId(),
-                                                {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
+  // Inicializaciones
+  const presentacion = SlidesApp.getActivePresentation();
+  const idPresentacion = presentacion.getId();
+  const diapos = presentacion.getSlides();
+  
+  // Obtener todas las miniaturas en slidesComoPng[]
+  const slidesComoPng = diapos.map(diapo => Slides.Presentations.Pages.getThumbnail(idPresentacion,
+                                                                                    diapo.getObjectId(),
+                                                                                    {'thumbnailProperties.mimeType':'PNG', 'thumbnailProperties.thumbnailSize':'MEDIUM'}));
 
   // Preparar peticiones fetchAll (ojo, necesario return dado que usamos llaves {..})
   const urls = slidesComoPng.map(diapo => {return {url: diapo.contentUrl}});
@@ -52,9 +55,9 @@ function exportarDiaposPngApi() {
     carpetaExp.createFile(blob.setName(`Diapositiva ${String(n + 1).padStart(nDigitos, '0')}`));
   });
 
+  // Tiempo final
   console.info(new Date() - t1);
 
   // Mensaje final
   SlidesApp.getUi().alert('✔️️ URL carpeta exportación:\n\n' + carpetaExp.getUrl());
-
 }
