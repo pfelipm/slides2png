@@ -24,8 +24,8 @@ function exportarDiaposPngUrl() {
 
   // Obtiene copia auxiliar de la presentación, no parece ser posible actuar directamente
   // sobre la original por falta de actualización del orden de las diapositivas
-  const presentacion = SlidesApp.getActivePresentation();
-        idPresentacion = presentacion.getId();
+  const presentacion = SlidesApp.getActivePresentation(),
+        idPresentacion = presentacion.getId(),
         archivoAux = DriveApp.getFileById(idPresentacion).makeCopy(),
         idPresentacionAux = archivoAux.getId();
 
