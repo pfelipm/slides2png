@@ -33,8 +33,8 @@ function exportarDiaposPngUrl() {
   const url = `https://docs.google.com/presentation/d/${idPresentacionAux}/export/png?access_token=${ScriptApp.getOAuthToken()}`;
 
   // Obtiene diapositivas de la presentación auxiliar
-  let presentacionAux = SlidesApp.openById(idPresentacionAux),
-      diapos = presentacionAux.getSlides();
+  let presentacionAux = SlidesApp.openById(idPresentacionAux);
+  let diapos = presentacionAux.getSlides();
   
   // Obtener blobs (imágenes PNG) de cada diapositiva
   const blobsImg = diapos.map(diapo => {
