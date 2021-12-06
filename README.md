@@ -1,3 +1,4 @@
+![Creado con - Google Apps Script](https://img.shields.io/static/v1?label=Creado+con&message=Google+Apps+Script&color=blue&style=for-the-badge&logo=GAS)
 # slides2png
 
 Un Apps Script que exporta todas las diapositivas de una presentación de Google a **imágenes png** independientes y las guarda en una carpeta anexa en Google Drive, surgido a partir de [este tuit](https://twitter.com/ejruizgarcia/status/1355974033247006723).
